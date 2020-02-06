@@ -1,0 +1,40 @@
+.searchform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+ul.options {
+  margin-top: -10px;
+}
+
+ul.options li {
+  display: block;
+  background: #efebe9;
+  margin-left: -40px;
+  margin-bottom: 5px;
+  padding: 10px;
+  width: 235px;
+  border-radius: 5px;
+  text-align: left;
+  color: black;
+}
+
+ul.options li:hover {
+  background-color: #d7ccc8;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+table,
+td,
+th {
+  border: 2px solid black;
+}
+
+.tableData {
+  /* min-width: 900px; */
+  border-collapse: collapse;
+  border-radius: 10px;
+}
