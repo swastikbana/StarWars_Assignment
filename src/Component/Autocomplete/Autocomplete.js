@@ -6,7 +6,7 @@ class Autocomplete extends Component {
     this.state = {
       enteredValue: '',
       planetList: '',
-      displayList: 'block',
+      displayList: 'none',
       selectedPlanet: ''
     };
   }
@@ -14,21 +14,24 @@ class Autocomplete extends Component {
   onChange(e) {
     const baseUrl = 'https://swapi.co/api/';
 
-    fetch(`${baseUrl}planets/?search=${e.target.value}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ planetList: data.results });
-      })
-      .catch(error => this.setState({ error }));
+    this.setState({ enteredValue: e.target.value });
 
-    this.setState({
-      enteredValue: e.target.value,
-      displayList: 'block'
-    });
+    if (e.target.value.length > 0) {
+      fetch(`${baseUrl}planets/?search=${e.target.value}`)
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            planetList: data.results,
+            displayList: 'block'
+          });
+        })
+        .catch(error => this.setState({ error }));
+    } else {
+      this.setState({ enteredValue: '', displayList: 'none', planetList: '' });
+    }
   }
 
   onClickPlanet(planet) {
-    console.log(planet);
     this.setState({
       enteredValue: planet.name,
       displayList: 'none',
@@ -40,7 +43,6 @@ class Autocomplete extends Component {
     const { planetList, selectedPlanet } = this.state;
     let itemList;
     if (planetList !== '') {
-      console.log(planetList);
       itemList = (
         <ul className="options" style={{ display: this.state.displayList }}>
           {planetList.map(planet => {
